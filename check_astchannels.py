@@ -59,7 +59,8 @@ class astChannelsCheck:
            return ''
         return self.args.C
     def makeInstall(self):
-        os.system(f"""""echo 'nagios    ALL= NOPASSWD: {self.channels_cmd}'>>/etc/sudoers.d/nagios_asterisk""")
+        myself=sys.argv[0] # script name
+        os.system(f"""""echo 'nagios    ALL= NOPASSWD: {myself}'>>/etc/sudoers.d/nagios_asterisk""")
     def getChannels(self):
         self.count = 0
         return_string = ""
