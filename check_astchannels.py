@@ -19,7 +19,7 @@ class NagiosResponseCode(Enum):
 
 class astChannelsCheck:
     sudo_cmd     = """/usr/sbin/sudo"""
-    channels_cmd = """/usr/sbin/asterisk -rx 'core show channels count' """
+    channels_cmd = """/usr/sbin/asterisk -rx "core show channels count" """
     channels_sample_output = """
     52 active channels
     26 active calls
@@ -59,7 +59,7 @@ class astChannelsCheck:
            return ''
         return self.args.C
     def makeInstall(self):
-        os.system(f"echo 'nagios    ALL= NOPASSWD: {self.channels_cmd}'>>/etc/sudoers.d/nagios_asterisk")
+        os.system(f"""""echo 'nagios    ALL= NOPASSWD: {self.channels_cmd}'>>/etc/sudoers.d/nagios_asterisk""")
     def getChannels(self):
         self.count = 0
         return_string = ""
