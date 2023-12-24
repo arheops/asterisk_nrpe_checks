@@ -5,6 +5,7 @@ Install
  wget https://raw.githubusercontent.com/arheops/asterisk_nrpe_checks/master/check_astchannels.py \
     -O /usr/lib/nagios/plugins/check_astchannels.py
  chmod a+x /usr/lib/nagios/plugins/check_astchannels.py
+ /usr/lib/nagios/plugins/check_astchannels.py install
 ```
  
  For vicidial only, for your OS check nrpe config file location
