@@ -25,8 +25,8 @@ class astChannelsCheck:
     3069 calls processed
     """
     def init(self):
-        self.return_code = NagiosResponseCode.UNKNOWN
-        self.return_msg = 'UNKNOWN'
+        self.return_code = NagiosResponseCode.UNKNOWN.value
+        self.return_msg = NagiosResponseCode.UNKNOWN.name
         self.count = 0
     def getParser(self):
         parser = argparse.ArgumentParser()
@@ -58,7 +58,7 @@ class astChannelsCheck:
            return ''
         return self.args.C
     def makeInstall(self):
-        os.system(f"echo 'nagios    ALL= NOPASSWD: {self.channels_cmd}'>/etc/sudoers.d/nagios_asterisk")
+        os.system(f"echo 'nagios    ALL= NOPASSWD: {self.channels_cmd}'>>/etc/sudoers.d/nagios_asterisk")
     def getChannels(self):
         self.count = 0
         return_string = ""
@@ -82,19 +82,19 @@ class astChannelsCheck:
         self.process_output(return_string)
     def process_output(self, return_string):
         if self.return_code == NagiosResponseCode.UNKNOWN:
-            sys.exit(NagiosResponseCode.UNKNOWN)
-
+            sys.exit(NagiosResponseCode.UNKNOWN.value)
+        self.return_msg = NagiosResponseCode.UNKNOWN.name
         if self.count >= self.critical_threshold:
             self.return_code = NagiosResponseCode.CRITICAL.value
             self.return_msg  = NagiosResponseCode.CRITICAL.name
         elif (self.count >= self.warn_threshold):
-            return_code = NagiosResponseCode.WARNING.value
-            return_msg  = NagiosResponseCode.WARNING.name
+            self.return_code = NagiosResponseCode.WARNING.value
+            self.return_msg  = NagiosResponseCode.WARNING.name
         else:
-            return_code = NagiosResponseCode.OK.value
-            return_msg  = NagiosResponseCode.OK.name
-        print(return_msg + ": " + return_string)
-        sys.exit(return_code)
+            self.return_code = NagiosResponseCode.OK.value
+            self.return_msg  = NagiosResponseCode.OK.name
+        print(self.return_msg + ": " + return_string)
+        sys.exit(self.return_code)
     def process(self):
         self.getArgs()
         if self.getCommand() == "install":
