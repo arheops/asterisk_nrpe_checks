@@ -18,7 +18,8 @@ class NagiosResponseCode(Enum):
     UNKNOWN = 3
 
 class astChannelsCheck:
-    channels_cmd = """sudo /usr/sbin/asterisk -rx 'core show channels count' """
+    sudo_cmd     = """/usr/sbin/sudo"""
+    channels_cmd = """/usr/sbin/asterisk -rx 'core show channels count' """
     channels_sample_output = """
     52 active channels
     26 active calls
@@ -63,7 +64,7 @@ class astChannelsCheck:
         self.count = 0
         return_string = ""
         try:
-            with Popen(self.channels_cmd, stdout=PIPE, stderr=None, shell=True) as process:
+            with Popen(self.sudo_cmd+' '+self.channels_cmd, stdout=PIPE, stderr=None, shell=True) as process:
                 output = process.communicate()[0].decode("utf-8")
                 (channels, calls, proccessed_calls) = re.findall(r'\d+', output)
                 count = int(channels)
