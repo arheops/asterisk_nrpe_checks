@@ -18,7 +18,7 @@ class NagiosResponseCode(Enum):
     UNKNOWN = 3
 
 class astChannelsCheck:
-    sudo_cmd     = """/usr/sbin/sudo"""
+    sudo_cmd     = """/usr/bin/sudo"""
     channels_cmd = """/usr/sbin/asterisk -rx "core show channels count" """
     channels_sample_output = """
     52 active channels
