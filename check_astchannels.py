@@ -77,7 +77,7 @@ class astChannelsCheck:
             with Popen(self.sudo_cmd+' '+self.channels_cmd, stdout=PIPE, stderr=None, shell=True) as process:
                 output = process.communicate()[0].decode("utf-8")
                 (channels, calls, proccessed_calls) = re.findall(r'\d+', output)
-                self.count = int(channels)
+                self.count = int(calls)
                 return_string = f"{channels} active channels {calls} active calls {proccessed_calls} calls processed"
                 perfomance = f"'channels.active'={channels};{self.warn_threshold};{self.critical_threshold};;"
                 perfomance +=f" 'calls.active'={calls};;;;"
